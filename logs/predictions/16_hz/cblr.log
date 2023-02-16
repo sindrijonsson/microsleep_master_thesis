@@ -1,0 +1,92 @@
+
+2022/10/26 11:52:18 | INFO | Loading and pre-processing PSG file...
+
+2022/10/26 11:52:18 | INFO | Evaluating using parameters:
+{'batch_wise_scaling': False,
+ 'period_length': 30,
+ 'quality_control_func': {'min_max_times_global_iqr': 20,
+                          'quality_control_func': 'clip_noisy_values'},
+ 'scaler': 'RobustScaler',
+ 'set_sample_rate': 128,
+ 'strip_func': ordereddict([('strip_func_str', 'trim_psg_trailing')]),
+ 'time_unit': 'SECONDS'}
+
+2022/10/26 11:52:18 | INFO | Processing input channels: ['EEG O1-M2==EEG', 'EEG O2-M1==EEG', 'EOG LOC-M1==EOG', 'EOG ROC-M1==EOG']
+
+2022/10/26 11:52:18 | INFO | 
+Found:
+-- Load channels: ['EEG O1-M2', 'EEG O2-M1', 'EOG LOC-M1', 'EOG ROC-M1']
+-- Groups: [['EEG O1-M2', 'EEG O2-M1', 'EOG LOC-M1', 'EOG ROC-M1']]
+-- Types: ['EEG', 'EEG', 'EOG', 'EOG']
+
+2022/10/26 11:52:18 | WARNING | OBS: Auto channel grouping returned groups: [('EOG LOC-M1', 'EEG O1-M2'), ('EOG LOC-M1', 'EEG O2-M1'), ('EOG ROC-M1', 'EEG O1-M2'), ('EOG ROC-M1', 'EEG O2-M1')] (required groups: ['EOG', 'EEG'])
+
+2022/10/26 11:52:18 | INFO | 
+Loading channels: ['EEG O1-M2', 'EEG O2-M1', 'EOG LOC-M1', 'EOG ROC-M1']
+Channel groups: [ChannelSet(channel_names=('EOG LOC-M1', 'EEG O1-M2'), channel_indices=[2, 0]), ChannelSet(channel_names=('EOG LOC-M1', 'EEG O2-M1'), channel_indices=[2, 1]), ChannelSet(channel_names=('EOG ROC-M1', 'EEG O1-M2'), channel_indices=[3, 0]), ChannelSet(channel_names=('EOG ROC-M1', 'EEG O2-M1'), channel_indices=[3, 1])]
+
+2022/10/26 11:52:18 | INFO | 
+Study loaded with shape: (307200, 4)
+Channels: (ChannelMontage(EEG_O1-M2), ChannelMontage(EEG_O2-M1), ChannelMontage(EOG_LOC-M1), ChannelMontage(EOG_ROC-M1)) (org names: ['EEG O1-M2', 'EEG O2-M1', 'EOG LOC-M1', 'EOG ROC-M1'])
+
+2022/10/26 11:52:18 | INFO | Setting CUDA_VISIBLE_DEVICES = ''
+
+2022/10/26 11:52:18 | INFO | Predicting with 8 data per prediction
+
+2022/10/26 11:52:21 | INFO | Creating new model of type 'USleep'
+
+2022/10/26 11:52:22 | INFO | Found requested class 'elu' in module '<module 'keras.api._v2.keras.activations' from 'c:\\users\\sindri\\appdata\\local\\programs\\python\\python39\\lib\\site-packages\\keras\\api\\_v2\\keras\\activations\\__init__.py'>'
+
+2022/10/26 11:52:24 | INFO | 
+USleep Model Summary
+--------------------
+N periods:         80
+Input dims:        3840
+N channels:        2
+N classes:         5
+Kernel size:       9
+Dilation rate:     1
+CF factor:         1.670
+Init filters:      5
+Depth:             12
+Pool size:         2
+Transition window  1
+Dense activation   tanh
+l2 reg:            None
+Padding:           same
+Conv activation:   elu
+Receptive field:   73719
+Seq length.:       307200
+N params:          3119351
+Input:             KerasTensor(type_spec=TensorSpec(shape=(None, 80, 3840, 2), dtype=tf.float32, name='input_1'), name='input_1', description="created by layer 'input_1'")
+Output:            KerasTensor(type_spec=TensorSpec(shape=(None, 80, 480, 5), dtype=tf.float32, name=None), name='output_reshape/Reshape:0', description="created by layer 'output_reshape'")
+
+2022/10/26 11:52:25 | INFO | Loading parameters from: c:\users\sindri\appdata\local\programs\python\python39\lib\site-packages\usleep\models\u-sleep-1.0\model\model\@epoch_10154_val_dice_0.80160.h5
+
+2022/10/26 11:52:25 | INFO | Predicting...
+
+2022/10/26 11:52:25 | INFO | 
+--- Channel names: ('EOG LOC-M1', 'EEG O1-M2')
+--- Channel inds: [2, 0]
+--- Extracted PSG shape: (1, 80, 3840, 2)
+
+2022/10/26 11:52:27 | INFO | 
+--- Channel names: ('EOG LOC-M1', 'EEG O2-M1')
+--- Channel inds: [2, 1]
+--- Extracted PSG shape: (1, 80, 3840, 2)
+
+2022/10/26 11:52:28 | INFO | 
+--- Channel names: ('EOG ROC-M1', 'EEG O1-M2')
+--- Channel inds: [3, 0]
+--- Extracted PSG shape: (1, 80, 3840, 2)
+
+2022/10/26 11:52:28 | INFO | 
+--- Channel names: ('EOG ROC-M1', 'EEG O2-M1')
+--- Channel inds: [3, 1]
+--- Extracted PSG shape: (1, 80, 3840, 2)
+
+2022/10/26 11:52:28 | INFO | Predicted shape: (38400, 5)
+
+2022/10/26 11:52:28 | INFO | Saving prediction array of shape (38400, 5) to predictions\16_hz\cblr.npy
+
+2022/10/26 11:52:28 | INFO | Using save function: save_npy

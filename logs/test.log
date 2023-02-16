@@ -1,0 +1,78 @@
+
+2022/11/01 12:36:35 | INFO | Loading and pre-processing PSG file...
+
+2022/11/01 12:36:35 | INFO | Evaluating using parameters:
+{'batch_wise_scaling': False,
+ 'period_length': 30,
+ 'quality_control_func': {'min_max_times_global_iqr': 20,
+                          'quality_control_func': 'clip_noisy_values'},
+ 'scaler': 'RobustScaler',
+ 'set_sample_rate': 128,
+ 'strip_func': ordereddict([('strip_func_str', 'trim_psg_trailing')]),
+ 'time_unit': 'SECONDS'}
+
+2022/11/01 12:36:36 | INFO | Processing input channels: ['E2', 'E1', 'F4', 'F3', 'C4', 'C3', 'M1', 'M2']
+
+2022/11/01 12:36:36 | INFO | 
+Found:
+-- Load channels: ['E2', 'E1', 'F4', 'F3', 'C4', 'C3', 'M1', 'M2']
+-- Groups: [['E2', 'E1', 'F4', 'F3', 'C4', 'C3', 'M1', 'M2']]
+-- Types: ['EOG', 'EOG', 'EEG', 'EEG', 'EEG', 'EEG', 'MASTOID', 'MASTOID']
+
+2022/11/01 12:36:36 | WARNING | OBS: Auto referencing returned channels: ['E2-M1', 'E1-M2', 'F4-M1', 'F3-M2', 'C4-M1', 'C3-M2']
+
+2022/11/01 12:36:36 | WARNING | OBS: Auto channel grouping returned groups: [('E2-M1', 'F4-M1'), ('E2-M1', 'F3-M2'), ('E2-M1', 'C4-M1'), ('E2-M1', 'C3-M2'), ('E1-M2', 'F4-M1'), ('E1-M2', 'F3-M2'), ('E1-M2', 'C4-M1'), ('E1-M2', 'C3-M2')] (required groups: ['EOG', 'EEG'])
+
+2022/11/01 12:36:36 | INFO | 
+Loading channels: ['E2-M1', 'E1-M2', 'F4-M1', 'F3-M2', 'C4-M1', 'C3-M2']
+Channel groups: [ChannelSet(channel_names=('E2-M1', 'F4-M1'), channel_indices=[0, 2]), ChannelSet(channel_names=('E2-M1', 'F3-M2'), channel_indices=[0, 3]), ChannelSet(channel_names=('E2-M1', 'C4-M1'), channel_indices=[0, 4]), ChannelSet(channel_names=('E2-M1', 'C3-M2'), channel_indices=[0, 5]), ChannelSet(channel_names=('E1-M2', 'F4-M1'), channel_indices=[1, 2]), ChannelSet(channel_names=('E1-M2', 'F3-M2'), channel_indices=[1, 3]), ChannelSet(channel_names=('E1-M2', 'C4-M1'), channel_indices=[1, 4]), ChannelSet(channel_names=('E1-M2', 'C3-M2'), channel_indices=[1, 5])]
+
+2022/11/01 12:36:44 | INFO | 
+Study loaded with shape: (3901440, 6)
+Channels: (ChannelMontage(E2-M1), ChannelMontage(E1-M2), ChannelMontage(F4-M1), ChannelMontage(F3-M2), ChannelMontage(C4-M1), ChannelMontage(C3-M2)) (org names: ['E2-M1', 'E1-M2', 'F4-M1', 'F3-M2', 'C4-M1', 'C3-M2'])
+
+2022/11/01 12:36:44 | INFO | Setting CUDA_VISIBLE_DEVICES = ''
+
+2022/11/01 12:36:44 | INFO | Predicting with 128 data per prediction
+
+2022/11/01 12:36:48 | INFO | Creating new model of type 'USleep'
+
+2022/11/01 12:36:48 | INFO | Found requested class 'elu' in module '<module 'keras.api._v2.keras.activations' from 'c:\\users\\sindri\\appdata\\local\\programs\\python\\python39\\lib\\site-packages\\keras\\api\\_v2\\keras\\activations\\__init__.py'>'
+
+2022/11/01 12:36:51 | INFO | 
+USleep Model Summary
+--------------------
+N periods:         1016
+Input dims:        3840
+N channels:        2
+N classes:         5
+Kernel size:       9
+Dilation rate:     1
+CF factor:         1.670
+Init filters:      5
+Depth:             12
+Pool size:         2
+Transition window  1
+Dense activation   tanh
+l2 reg:            None
+Padding:           same
+Conv activation:   elu
+Receptive field:   73719
+Seq length.:       3901440
+N params:          3119351
+Input:             KerasTensor(type_spec=TensorSpec(shape=(None, 1016, 3840, 2), dtype=tf.float32, name='input_1'), name='input_1', description="created by layer 'input_1'")
+Output:            KerasTensor(type_spec=TensorSpec(shape=(None, 1016, 30, 5), dtype=tf.float32, name=None), name='output_reshape/Reshape:0', description="created by layer 'output_reshape'")
+
+2022/11/01 12:36:51 | INFO | Loading parameters from: c:\users\sindri\appdata\local\programs\python\python39\lib\site-packages\usleep\models\u-sleep-1.0\model\model\@epoch_10154_val_dice_0.80160.h5
+
+2022/11/01 12:36:51 | INFO | Predicting...
+
+2022/11/01 12:36:51 | INFO | 
+--- Channel names: ('E2-M1', 'F4-M1')
+--- Channel inds: [0, 2]
+--- Extracted PSG shape: (1, 1016, 3840, 2)
+
+2022/11/01 12:36:56 | INFO | 
+--- Channel names: ('E2-M1', 'F3-M2')
+--- Channel inds: [0, 3]
+--- Extracted PSG shape: (1, 1016, 3840, 2)

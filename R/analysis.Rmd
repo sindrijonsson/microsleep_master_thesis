@@ -1,0 +1,184 @@
+---
+title: "Correlation analysis"
+author: "Sindri Jonsson"
+date: "2/11/2023"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r Load libraries}
+library(ggplot2)
+library(dplyr)
+library(ggpubr)
+library(tidyr)
+library(tidyverse)
+library(corrr)
+library(glue)
+library(ggtext)
+```
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+```{r Load data}
+setwd("C:/code/mU-Sleep/R")
+
+all.data <- read.csv("all_data.csv",stringsAsFactors = TRUE)
+all.data$criteria <- rep("Any duration", length(all.data$y))
+str(all.data)
+
+limited.data <- read.csv("limited_data.csv",stringsAsFactors = TRUE)
+limited.data$criteria <- rep("3-15 sec", length(limited.data$y))
+str(limited.data)
+```
+
+```{r Rename column names}
+
+x.names <- list(
+  x_countMS          = "# MS",
+  x_numMS            = "# MS per minute",
+  x_cumDurMS         = "Cumulative MS duration (s)",
+  x_medDurMS         = "Median MS duration (s)",
+  x_meanDurMS        = "Mean MS duration (s)",
+  x_interDurMeanMS   = "Mean Inter-MS duration (s)",
+  x_interDurMedianMS = "Median Inter-MS duration (s)",
+  x_cumProbMS        = "Cumulative MS probability",
+  x_probEntropyMS    = "Shannon Entropy of MS probability"
+)
+
+y.name <- "Sleep Latency (s)"
+```
+
+```{r}
+sl.dat <- all.data[all.data$model=="Human",]
+sl.stats <- sl.dat %>%
+              group_by(y) %>%
+                summarize(n = n())
+sl.stats$cumsum <- cumsum(sl.stats$n) / sum(sl.stats$n)
+ggplot(sl.stats, aes(x = y, y = cumsum)) +
+  theme_bw() + 
+  geom_point(size=3) +
+  scale_y_continuous(labels = scales::percent, n.breaks = 10) +
+  scale_x_time(labels = function(x) strftime(x, "%M")) +
+  xlab("Time (min)") + ylab("Patients (%)") + ggtitle(sprintf("Sleep Latency (n=%i)",sum(sl.stats$n)))
+
+```
+```{r}
+exclude <- FALSE
+
+if (exclude){
+  lwr.lim <- 60 * 5
+  upr.lim <- 60 * 40
+  all.data <- all.data[all.data$y > lim & all.data$y < upr.lim,]
+  limited.data <- limited.data[limited.data$y > lim & limited.data$y < upr.lim,]
+}
+
+```
+
+
+
+```{r}
+my.corr.analysis <- function (df, x.map) {
+  
+  model.order <- c("Human","FB-RF","FB-SVM","FB-LSTM",
+                   "CNN-16s","patU-Sleep","mU-SSL","mU-Sleep")
+  df$model <- factor(df$model, levels=model.order) 
+  
+  x.var <- colnames(df)[grepl("x_",colnames(df))]
+  y.var <- "y"
+  y.name <- "Sleep Latency (s)"
+  
+  cor.df <- data.frame()
+  for (x in x.var) {
+    
+    gs <- ggscatter(df, x = x, y = y.var,
+                    add = "reg.line",  # Add regressin line
+                    add.params = list(color = "red", fill = "lightgray"), # Customize reg. line
+                    conf.int = TRUE, # Add confidence interval,
+                    ggtheme = theme_bw()
+    ) +
+      facet_wrap(.~model, ncol=4, scales="free_x") + grids() +
+      xlab(x.map[x]) + ylab(y.name) 
+    
+    y.lim<-layer_scales(gs)$y$get_limits()
+    x.lim<-layer_scales(gs)$x$get_limits()
+    
+    gp <- gs + stat_cor(method="pearson", p.accuracy = 0.05, r.accuracy=0.01,
+                        aes(label=paste(..rr.label.., ..p.label.., sep = "~`,`~")),
+                        label.y = y.lim[2]) +
+                        ylim(c(y.lim[1], y.lim[2]+0.1*y.lim[2])) +
+                        scale_y_time(labels = function(x) strftime(x, "%M"))
+    stat.df <- df[,c(x,y.var,"model")]
+    colnames(stat.df) <- c("x","y","model")
+    
+    tmp <- data.frame()
+    for (m in unique(df$model)) {
+      g.df <- stat.df[stat.df$model==m,]
+      if ( all(is.na(g.df$x)) ) {
+        stats <- g.df %>% summarize(p=NaN, r=NaN, R2=NaN)
+      } else {
+        stats <- g.df %>% 
+          summarize(p = cor.test(x, y, method="pearson", conf.level=0.95)$p.value,
+                    r = cor.test(x, y, method="pearson", conf.level=0.95)$estimate,
+                    R2 = r*r)
+      }
+      stats$model <- m
+      stats$x <- x
+      tmp <- rbind(tmp, stats)
+    }
+    cor.df <- rbind(cor.df, tmp)
+    
+    print(gp)   
+  }
+  
+  return(cor.df)
+}
+```
+
+
+
+```{r}
+all.cor <- my.corr.analysis(all.data, x.names)
+
+```
+
+
+```{r}
+limited.cor <- my.corr.analysis(limited.data, x.names)
+```
+
+```{r}
+
+highlight = function(x, pat, color="black", family="") {
+  ifelse(grepl(pat, x), glue("<b style='font-family:{family}; color:{color}'>{x}</b>"), x)
+}
+
+my.mat.plot <- function(df, names) {
+    mat<-ggplot(df, aes(x=model, y=x, fill = r)) +
+    geom_tile(color="black") +
+    theme_bw() +
+    coord_equal() + scale_y_discrete(labels = names) +
+    scale_fill_distiller(palette="Blues", direction = -1) +
+    scale_x_discrete(labels=function(x) highlight(x, "U-", family="bold")) +
+    theme(axis.text.x = element_markdown(angle=45, vjust=0.5)) +
+    ylab("Features") + xlab("Model")
+  
+    mat <- mat + geom_text(data=df[df$p < 0.05,], 
+                           aes(label=sprintf("%0.2f",R2),fontface="bold")) +
+                 geom_text(data=df[df$p >= 0.05,], 
+                           aes(label=sprintf("%0.2f",R2)))
+    return(mat)
+}
+
+all.mat <- my.mat.plot(all.cor, x.names)
+print(all.mat)
+```
+```{r}
+limited.mat <- my.mat.plot(limited.cor, x.names)
+print(limited.mat)
+```
+
+
+
