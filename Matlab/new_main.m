@@ -36,7 +36,7 @@ params.pburgFreqRes = 0.2;
 
 
 % Model specifics
-params.retrain = ["RF","SVM","LSTM"];
+params.retrain = [""];%["RF","SVM","LSTM"];
 params.windowSizeLSTM = 9;
 
 % U-sleep specifics
@@ -87,7 +87,7 @@ cvStats = summarize_cv(cvUsleep,params);
 
 [uSleep_overallMetrics, uSleep_perRecMetrics] = eval_test_by(testUsleep, "sample", params);
 
-return
+
 %% 6, Transfer learning 
 
 % Let's evaluate transfer learning results
@@ -118,12 +118,12 @@ testMuSleep.yHat = yHat;
 
 %% 6.2 Malafeev
 % Let's evaluate transfer learning results
-testMalafeev = load("malafeev42.mat");
+testMalafeev = load("malafeev42_new.mat");
 
 testMalafeev.id = string(testMalafeev.id);
 testMalafeev.yHat = testMalafeev.yHat';
 testMalafeev.yTrue = testMalafeev.yTrue';
-testMalafeev.probs = testMalafeev.probs';
+% testMalafeev.probs = testMalafeev.probs';
 testMalafeev = struct2table(testMalafeev);
 
 % Sort according to testUsleep
@@ -169,7 +169,7 @@ end
 
 testSSL.yHat = yHat;
 
-[ssl_overallMetrics, ssl_perRecMetrics] = eval_test_by(testSSL, "sample", params)
+[ssl_overallMetrics, ssl_perRecMetrics] = eval_test_by(testSSL, "sample", params);
 
 %% 6. Summarize the results
 
