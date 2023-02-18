@@ -3,11 +3,12 @@ r=get_target_hit_duration_table(testRF,params);
 s=get_target_hit_duration_table(testSVM,params);
 l=get_target_hit_duration_table(testLSTM,params);
 u=get_target_hit_duration_table(testUsleep,params);
-m=get_target_hit_duration_table(malafeev,params);
+m=get_target_hit_duration_table(testMalafeev,params);
 mu=get_target_hit_duration_table(testMuSleep,params);
 
 stats = [mu;u;l;r;s;m];
-stats.model = repelem(mdls,height(r),1);
+m = mdls(~contains(mdls,"SSL"));
+stats.model = repelem(m,height(r),1);
 stats.dur = stats.dur;
 
 % figure(1); clf; hold on;
@@ -15,8 +16,8 @@ stats.dur = stats.dur;
 %     "InputVariables",["dur","perc"], ...
 %     "GroupingVariables","model");
 
-tStats=unstack(stats, "perc", "model");
-tStats=tStats(:,["dur","GroupCount","Raw_CNN_16s","FB_LSTM","FB_RF","FB_SVM","mUSleep","uSleep"]);
+tStats=unstack(stats, "perc", "model",'VariableNamingRule','preserve');
+tStats=tStats(:,["dur","GroupCount",m']);
 
 figure(2);clf; hold on;
 hdl = [];

@@ -1,0 +1,99 @@
+2023-02-17 18:49:35.296267: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-02-17 18:49:35.546226: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2023-02-17 18:49:37.969670: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /share/software/user/open/cudnn/8.1.1.33/lib64:/usr/lib64/nvidia:/share/software/user/open/cuda/11.2.0/targets/x86_64-linux/lib64:/share/software/user/open/cuda/11.2.0/lib64:/share/software/user/open/cuda/11.2.0/nvvm/lib64:/share/software/user/open/cuda/11.2.0/extras/Debugger/lib64:/share/software/user/open/cuda/11.2.0/extras/CUPTI/lib64:/share/software/user/open/nccl/2.8.4/lib:/share/software/user/open/openblas/0.3.10/lib:/share/software/user/open/gcc/10.1.0/lib64:/share/software/user/open/gcc/10.1.0/lib/gcc/x86_64-pc-linux-gnu:/share/software/user/open/gcc/10.1.0/lib:/share/software/user/open/python/3.9.0/lib:/share/software/user/open/libffi/3.2.1/lib64:/share/software/user/open/sqlite/3.37.2/lib:/share/software/user/open/readline/7.0/lib:/share/software/user/open/tcltk/8.6.6/lib:/share/software/user/open/libressl/3.2.1/lib:/share/software/user/open/zlib/1.2.11/lib
+2023-02-17 18:49:37.970218: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /share/software/user/open/cudnn/8.1.1.33/lib64:/usr/lib64/nvidia:/share/software/user/open/cuda/11.2.0/targets/x86_64-linux/lib64:/share/software/user/open/cuda/11.2.0/lib64:/share/software/user/open/cuda/11.2.0/nvvm/lib64:/share/software/user/open/cuda/11.2.0/extras/Debugger/lib64:/share/software/user/open/cuda/11.2.0/extras/CUPTI/lib64:/share/software/user/open/nccl/2.8.4/lib:/share/software/user/open/openblas/0.3.10/lib:/share/software/user/open/gcc/10.1.0/lib64:/share/software/user/open/gcc/10.1.0/lib/gcc/x86_64-pc-linux-gnu:/share/software/user/open/gcc/10.1.0/lib:/share/software/user/open/python/3.9.0/lib:/share/software/user/open/libffi/3.2.1/lib64:/share/software/user/open/sqlite/3.37.2/lib:/share/software/user/open/readline/7.0/lib:/share/software/user/open/tcltk/8.6.6/lib:/share/software/user/open/libressl/3.2.1/lib:/share/software/user/open/zlib/1.2.11/lib
+2023-02-17 18:49:37.970235: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+2023-02-17 18:49:45.922517: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-02-17 18:49:46.608920: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1616] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14615 MB memory:  -> device: 0, name: Tesla V100-SXM2-16GB, pci bus id: 0000:04:00.0, compute capability: 7.0
+/share/software/user/open/py-tensorflow/2.10.0_py39/lib/python3.9/site-packages/keras/initializers/initializers_v2.py:120: UserWarning: The initializer GlorotUniform is unseeded and being called multiple times, which will return identical values  each time (even if the initializer is unseeded). Please update your code to provide a seed to the initializer, or avoid using the same initalizer instance more than once.
+  warnings.warn(
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+Quality control for sample 'edf_data' affected 5/19 epochs in channel 2
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+Quality control for sample 'edf_data' affected 15/46 epochs in channel 1
+Quality control for sample 'edf_data' affected 16/46 epochs in channel 2
+Quality control for sample 'edf_data' affected 10/46 epochs in channel 3
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+Quality control for sample 'edf_data' affected 6/34 epochs in channel 1
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+Quality control for sample 'edf_data' affected 26/80 epochs in channel 0
+Quality control for sample 'edf_data' affected 14/80 epochs in channel 1
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+Quality control for sample 'edf_data' affected 16/80 epochs in channel 0
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+Quality control for sample 'edf_data' affected 21/80 epochs in channel 0
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+Quality control for sample 'edf_data' affected 13/80 epochs in channel 3
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+Quality control for sample 'edf_data' affected 14/80 epochs in channel 2
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+OBS: Auto channel grouping returned groups: [('E1-M1', 'O1-M2'), ('E1-M1', 'O2-M1'), ('E2-M1', 'O1-M2'), ('E2-M1', 'O2-M1')] (required groups: ['EOG', 'EEG'])
+2023-02-17 18:50:27.498538: I tensorflow/stream_executor/cuda/cuda_dnn.cc:384] Loaded cuDNN version 8101

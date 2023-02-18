@@ -91,7 +91,7 @@ cvStats = summarize_cv(cvUsleep,params);
 %% 6, Transfer learning 
 
 % Let's evaluate transfer learning results
-testMuSleep = load("transfer_learning_status.mat");
+testMuSleep = load("transfer_learning_new.mat");
 tlOptThres = testMuSleep.optThres;
 testMuSleep = rmfield(testMuSleep,"optThres");
 testMuSleep.id = string(testMuSleep.id);
@@ -107,7 +107,7 @@ testMuSleep.yTrue = testUsleep.yTrue;
 
 yHat = [];
 for i = 1:height(testMuSleep)
-    tmpHat = double(testMuSleep.probs{i}(:,2) > tlOptThres);
+    tmpHat = double(testMuSleep.probs{i}(:,2) >= tlOptThres);
     tmpHat(tmpHat==0) = params.negClassValue;
     yHat = [yHat; num2cell(tmpHat',2)];
 end
@@ -123,7 +123,7 @@ testMalafeev = load("malafeev42_new.mat");
 testMalafeev.id = string(testMalafeev.id);
 testMalafeev.yHat = testMalafeev.yHat';
 testMalafeev.yTrue = testMalafeev.yTrue';
-% testMalafeev.probs = testMalafeev.probs';
+testMalafeev.probs = testMalafeev.probs';
 testMalafeev = struct2table(testMalafeev);
 
 % Sort according to testUsleep
@@ -146,7 +146,7 @@ testMalafeev.yHat = yHat;
 %% 6.3 Self-supervised learning 
 
 % Let's evaluate SSL results
-testSSL = load("ssl.mat");
+testSSL = load("main_comparison/ssl.mat");
 sslOptThres = testSSL.optThres;
 testSSL = rmfield(testSSL,"optThres");
 testSSL.id = string(testSSL.id);
