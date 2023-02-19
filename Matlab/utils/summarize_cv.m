@@ -45,4 +45,7 @@ optCV=cvStats(cvStats.hz==optHz & cvStats.method==optMethod,:);
 title(sprintf("Optimal model: %s @ %i Hz = %.2f", ...
                               optMethod, optHz, optCV.("mean_"+eval_metric)))
 
+tblFile = fullfile(params.outFolder, "cv_stats.csv");
+writetable(cvStats,tblFile);
+
 end

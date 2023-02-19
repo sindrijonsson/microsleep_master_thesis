@@ -4,7 +4,6 @@ function metrics = calc_performance_metrics(y_true, y_hat, params, order)
     else; timePerPrediction = params.windowSizeSec; end
     if nargin < 4; order = [1, -1]; end
 
-
     metrics = struct;
 
     % Generate confusion matrix
