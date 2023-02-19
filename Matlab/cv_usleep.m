@@ -105,6 +105,9 @@ cv.optHz = optHz;
 cv.optMethod = optMethod;
 save(cvFile,"cv");
 
+tblFile = cvFile.replace(".mat",".csv")
+writetable(cvResults,tblFile);
+
 end
 
 % 

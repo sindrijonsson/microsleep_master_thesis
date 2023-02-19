@@ -86,7 +86,7 @@ cvStats = summarize_cv(cvUsleep,params);
 %% 6, Transfer learning 
 
 % Let's evaluate transfer learning results
-testMuSleep = load("transfer_learning_status.mat");
+testMuSleep = load(fullfile(params.outFolder,"transfer_learning_status.mat"));
 tlOptThres = testMuSleep.optThres;
 testMuSleep = rmfield(testMuSleep,"optThres");
 testMuSleep.id = string(testMuSleep.id);
@@ -113,7 +113,7 @@ testMuSleep.yHat = yHat;
 
 %% 6.2 Malafeev
 % Let's evaluate transfer learning results
-testMalafeev = load("malafeev42.mat");
+testMalafeev = load(fullfile(params.outFolder,"malafeev42.mat"));
 
 testMalafeev.id = string(testMalafeev.id);
 testMalafeev.yHat = testMalafeev.yHat';
@@ -141,7 +141,7 @@ testMalafeev.yHat = yHat;
 %% 6.3 Self-supervised learning 
 
 % Let's evaluate SSL results
-testSSL = load("ssl.mat");
+testSSL = load(fullfile(params.outFolder,"ssl.mat"));
 sslOptThres = testSSL.optThres;
 testSSL = rmfield(testSSL,"optThres");
 testSSL.id = string(testSSL.id);

@@ -1,4 +1,4 @@
-tests = {testMuSleep, testUsleep, testLSTM, testRF, testSVM, malafeev};
+tests = {testMuSleep, testUsleep, testSSL, testLSTM, testRF, testSVM, testMalafeev};
 
 tSamp = table;
 tSampPerRec = table;

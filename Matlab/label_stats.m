@@ -1,6 +1,6 @@
 %% 
 
-load("main_comparison\params.mat","params")
+load("new_main_comparison\params.mat","params")
 
 rawTable = table;
 postTable = table;
@@ -165,7 +165,6 @@ testGrpStats.varPerc = sum(gTable{gTable.type=="test",vars}==1) / sum(gTable.typ
 gStatsTable = struct2table([trainGrpStats, validGrpStats, testGrpStats]);
 gStatsTable = rows2vars(gStatsTable);
 gStatsTable.Properties.VariableNames = ["s", "Train", "Validation", "Test"]
-
 
 
 

@@ -1,5 +1,6 @@
-tests = {testMuSleep, testUsleep, testLSTM, testRF, testSVM, malafeev};
+tests = {testMuSleep, testUsleep, testLSTM, testRF, testSVM, testMalafeev};
 
+m = mdls(~contains(mdls,"SSL"));
 fpTable = table;
 for i = 1:numel(tests)
     tmp = tests{i};
@@ -15,13 +16,13 @@ for i = 1:numel(tests)
                     "InputVariables",["fp"], ...
                     "GroupingVariables","dur", ...
                     "OutputVariableNames","perc");
-    stats.model = repmat(mdls(i),height(stats),1);
+    stats.model = repmat(m(i),height(stats),1);
 
     fpTable = [fpTable; stats];
 end
 
-tStats=unstack(fpTable, ["perc"], "model");
-tStats=tStats(:,["dur","GroupCount","Raw_CNN_16s","FB_LSTM","FB_RF","FB_SVM","mUSleep","uSleep"]);
+tStats=unstack(fpTable, ["perc"], "model","VariableNamingRule","preserve");
+tStats=tStats(:,["dur","GroupCount",m']);
 
 figure(2); clf; hold on;
 
