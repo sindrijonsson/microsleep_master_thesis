@@ -226,6 +226,7 @@ write_results_table(overallSampleTable,perRecSampleTable,"sample",params)
 [uSleep_eventOverallMetrics, uSleep_eventPerRecMetrics] = eval_test_by(testUsleep, "event", params);
 [muSleep_eventOverallMetrics, muSleep_eventPerRecMetrics] = eval_test_by(testMuSleep, "event", params); 
 [malafeev_eventOverallMetrics, malafeev_eventPerRecMetrics] = eval_test_by(testMalafeev, "event", params); 
+
 % Overall      
 overallEventTable = struct2table([muSleep_eventOverallMetrics;
                                   uSleep_eventOverallMetrics;
