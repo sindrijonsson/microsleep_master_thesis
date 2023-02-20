@@ -26,4 +26,6 @@ mdls = ["mU-Sleep"
         "FB-SVM";
         "CNN-16s"];
 
+myModels = mdls(contains(mdls,"U-S"));
+
 time = linspace(0, 40, 40*60);

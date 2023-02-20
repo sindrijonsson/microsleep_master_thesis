@@ -272,32 +272,27 @@ write_results_table(overallEventTable,perRecEventTable,"event",params)
 
 %% Stop before plotting
 return
-
 %% 8. Make informative plots of the test data for U-Sleep
 % Targets
 % Probabilietes
 % Predictions
 
 % Transform usleep test to match
-transUsleepTest = table;
-transUsleepTest.id = testUsleep.id;
-transUsleepTest.yTrue = cellfun(@(x) num2cell(x',1), testUsleep.yTrue);
-transUsleepTest.yHat = cellfun(@(x) num2cell(x',1), testUsleep.yHat);
+transUsleepTest = trans_test_table(testUsleep);
+transmUsleepTest = trans_test_table(testMuSleep);
+transSSLTest = trans_test_table(testSSL);
 
-transmUsleepTest = table;
-transmUsleepTest.id = testMuSleep.id;
-transmUsleepTest.yTrue = cellfun(@(x) num2cell(x',1), testMuSleep.yTrue);
-transmUsleepTest.yHat = cellfun(@(x) num2cell(x',1), testMuSleep.yHat);
 
 % Join test results into common table
-test = [transUsleepTest;
-        transmUsleepTest];
+test = [transmUsleepTest;
+        transUsleepTest;
+        transSSLTest];
 
-test.model = repelem(["uSleep";"muSleep"],height(transUsleepTest),1);
+test.model = repelem(myModels,height(transUsleepTest),1);
 
 uniqueIds = unique(test.id);
 
-saveOn = 0;
+saveOn = 1;
 
 msColor = colors.GREEN;
 
@@ -346,18 +341,15 @@ for i = 1:numel(uniqueIds)
     if contains(lower(optMethod),"argmax")
         yline(ax2, 0.5, "k-", "LineWidth",1);
     else
-        yline(ax2, optThres, "k-", "LineWidth",1);
-        
+        yline(ax2, optThres, "k-", "LineWidth",1); 
     end
     xticklabels(ax2,[]);
     % legend(ax2,"off")
 %     yticks([0,1])
     yhdl(ax2, "P(Sleep)")
-    subtitle(ax2, "uSleep", "FontWeight","bold")
+    subtitle(ax2, "patU-Sleep", "FontWeight","bold")
     
-
-    tmpResults = tmp(tmp.model=="uSleep",:);
-
+    tmpResults = tmp(tmp.model=="patU-Sleep",:);
 
     % Plot Usleep predictions
     tmpPreds = cell2mat(tmpResults.yHat);
@@ -377,7 +369,7 @@ for i = 1:numel(uniqueIds)
 
     muSleepStats = mUSleep_perRecMetrics(uSleep_perRecMetrics.id==tmpId,1:end-1);
     muSleepInfo = cellfun(@(var,value) sprintf("%s=%.2f", var, value), ...
-        uSleepStats.Properties.VariableNames, table2cell(muSleepStats));
+        muSleepStats.Properties.VariableNames, table2cell(muSleepStats));
     muSleepInfo = muSleepInfo(contains(muSleepInfo,["recall","precision","f1"]));
 
 
@@ -395,18 +387,19 @@ for i = 1:numel(uniqueIds)
     xticklabels(ax4,[]);
 %     yticks([0,1])
     % legend(ax2,"off")
-    subtitle(ax4, "muSleep", "FontWeight", "bold")
+    subtitle(ax4, "mU-Sleep", "FontWeight", "bold")
     yhdl(ax4, "P(Sleep)")
     legend(ax4, "MS", "Location","northwest");
     
     
-    tmpResults2 = tmp(tmp.model=="muSleep",:);
+    tmpResults2 = tmp(tmp.model=="mU-Sleep",:);
     
     % Plot Usleep predictions
     tmpPreds2 = cell2mat(tmpResults2.yHat);
     ax5 = subplot(subRows,subCols, 5);
     plot_predictions(tmpPreds2, timePreds, msColor, 1, ax5);
-    xlabel(ax5, "Time [min]");
+%     xlabel(ax5, "Time [min]");
+    xticklabels(ax5,[]);
     yhdl(ax5, "Predictions")
     ax3.YTick=[]; ax3.YTickLabels=[];
     yyaxis right
@@ -414,12 +407,56 @@ for i = 1:numel(uniqueIds)
     box(ax5,"on")
     ax5.YTick=[];
     ax5.YTickLabels=[];
+    
+
+    % ================================================================= %
+    %                               mU-SSL                              %
+    % ================================================================= %
+
+    SSLstats = mUSleep_perRecMetrics(uSleep_perRecMetrics.id==tmpId,1:end-1);
+    sslInfo = cellfun(@(var,value) sprintf("%s=%.2f", var, value), ...
+        SSLstats.Properties.VariableNames, table2cell(SSLstats));
+    sslInfo = sslInfo(contains(sslInfo,["recall","precision","f1"]));
+
+    % Plot mUsleep probabilities
+    probs = testSSL{testSSL.id == tmpId,"probs"};
+    probs = probs{1}';
+    ax6 = subplot(subRows, subCols, 6);
+    timeProbs = linspace(0, 40, 40*60*1);
+    if height(probs) < length(timeProbs)
+    probs = [probs;
+             nan(length(timeProbs)-height(probs),size(probs,2))];
+    end
+    area(ax6, timeProbs, probs, "EdgeColor","none");
+    yline(ax6, tlOptThres, "k-", "LineWidth", 1);
+    xticklabels(ax6,[]);
+%     yticks([0,1])
+    % legend(ax2,"off")
+    subtitle(ax6, "mU-SSL", "FontWeight", "bold")
+    yhdl(ax6, "P(Sleep)")
+    legend(ax6, "MS", "Location","northwest");
+    
+    
+    tmpResults2 = tmp(tmp.model=="mU-SSL",:);
+    
+    % Plot Usleep predictions
+    tmpPreds2 = cell2mat(tmpResults2.yHat);
+    ax7 = subplot(subRows,subCols, 7);
+    plot_predictions(tmpPreds2, timePreds, msColor, 1, ax7);
+    xlabel(ax7, "Time [min]");
+    yhdl(ax7, "Predictions")
+    ax7.YTick=[]; ax7.YTickLabels=[];
+    yyaxis right
+    yyhdl(ax7,muSleepInfo)
+    box(ax7,"on")
+    ax7.YTick=[];
+    ax7.YTickLabels=[];
 
     % Link all axes
     axs = findall(gcf,"Type","axes");
     linkaxes(axs)
     set(findall(gcf,"-property","FontSize"),"FontSize",12)
-    set(gcf,"WindowState","fullscreen")
+%     set(gcf,"WindowState","fullscreen")
 
     % Set all yaxis colors to black
     for n = 1:numel(axs)
@@ -431,11 +468,13 @@ for i = 1:numel(uniqueIds)
 
     %Save figure
     if saveOn
-        figFile = fullfile(params.outFolder,"figures",sprintf("%s.png", tmpId));
+        fig = gcf;
+        set(fig,'position',[fig.Position(1:2), 1280, 1280])
+        figFile = fullfile(params.outFolder,"figures","my_models",sprintf("%s.png", tmpId));
         exportgraphics(gcf, figFile, "Resolution",300);
     end
-   pause 
 end
+
 
 %% 8. Make informative plots of the test data for U-Sleep
 % Transform usleep test to match
@@ -447,7 +486,8 @@ transMalafeevTest.yHat = cellfun(@(x) num2cell(x',1), testMalafeev.yHat);
 % Join test results into common table
 testAll = [transmUsleepTest;
     transUsleepTest;
-    testLSTM;
+    transSSLTest;
+    testLSTM(:,["id","yTrue","yHat"]);
     testRF;
     testSVM;
     transMalafeevTest];
@@ -456,7 +496,7 @@ testAll.model = repelem(mdls,height(transUsleepTest),1);
 
 uniqueIds = unique(testAll.id);
 
-saveOn = 0;
+saveOn = 1;
 
 for i = 1:numel(uniqueIds)
     i=randi(numel(uniqueIds),1,1);
@@ -535,7 +575,7 @@ for i = 1:numel(uniqueIds)
     axs = findall(gcf,"Type","axes");
     linkaxes(axs)
     set(findall(gcf,"-property","FontSize"),"FontSize",12)
-    set(gcf,"WindowState","fullscreen")
+%     set(gcf,"WindowState","fullscreen")
     
     for j = 1:numel(axs)
         box(axs(j), "on")
@@ -553,9 +593,10 @@ for i = 1:numel(uniqueIds)
 
     %Save figure
     if saveOn
-        figFile = fullfile(params.outFolder,"figures",sprintf("%s.png",tmpId));
+        fig = gcf;
+        set(fig,'position',[fig.Position(1:2), 1280, 1280])
+        figFile = fullfile(params.outFolder,"figures","all_models",sprintf("%s.png",tmpId));
         exportgraphics(gcf, figFile, "Resolution",300);
     end
-    pause
 
 end
