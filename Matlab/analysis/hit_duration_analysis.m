@@ -5,9 +5,10 @@ l=get_target_hit_duration_table(testLSTM,params);
 u=get_target_hit_duration_table(testUsleep,params);
 m=get_target_hit_duration_table(testMalafeev,params);
 mu=get_target_hit_duration_table(testMuSleep,params);
+sl=get_target_hit_duration_table(testSSL,params);
 
-stats = [mu;u;l;r;s;m];
-m = mdls(~contains(mdls,"SSL"));
+stats = [mu;u;sl;l;r;s;m];
+m = mdls;
 stats.model = repelem(m,height(r),1);
 stats.dur = stats.dur;
 

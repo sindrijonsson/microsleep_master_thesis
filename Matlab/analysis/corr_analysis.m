@@ -7,7 +7,7 @@ setup
 %% Collect per subject predictions and targets
 
 % Run main and check_overfitting first
-main; check_overfitting;
+new_main; check_overfitting;
 
 all_mUSleep = [testMuSleep; trainMuSleep];
 all_mUSleep.probs=cellfun(@(x) x(:,2), all_mUSleep.probs, 'UniformOutput', false);
@@ -32,8 +32,8 @@ data = {all_mUSleep;
 models = [mdls; "Human"];
 tbl = readtable("Skorucak2020\2023_data_raw_AASM.xlsx");
 
-slMethod = @(x) get_aasm_sl(tbl, x, "aasm_sl_sec", 15);
-slMethod = @(x) get_moving_sleep_latency(x, 15);
+slMethod = @(x) get_aasm_sl(tbl, x, "aasm_sl_sec", 0);
+% slMethod = @(x) get_moving_sleep_latency(x, 15);
 
 
 %% Compute correlation stats with all predictions
@@ -116,6 +116,26 @@ for i = 1:length(data)
     tmpStats.model = repelem(models(i),height(tmpStats),1);
     probStats = [probStats; tmpStats];
 end
+
+%%
+ps = probStats;
+
+preMin = @(in, far, close) cellfun(@(x) mean(x(length(x)-(far*60):length(x)-(close*60)), "omitnan"), in);
+
+[idx, m] = findgroups(ps(:,"model"));
+mins = [5, 0;
+        10, 5;
+        20, 10];
+for i = 1:height(mins)
+    far = mins(i,1);
+    close = mins(i,2);
+    pre=splitapply(@(x){preMin(x, far, close)}, ps.probs, idx);
+    tblStr = sprintf("prob_%i_to_%i_pre_sleep_onset", far, close);
+    ps.(tblStr)= vertcat(pre{:});
+end
+
+ps=removevars(ps,"probs");
+writetable(ps,"..\R\intervaled_probabilites.csv")
 
 
 %%
@@ -269,9 +289,12 @@ for mi = 1:numel(probModel)
     end
     set(findall(gcf,"-property","FontSize"),"FontSize",12)
     set(gcf,"WindowState","fullscreen")
-    figFile = fullfile("C:\\Users\\Sindri\\Desktop\\EM\\",sprintf("%s_probability_vs_SL.png", mdl));
-    exportgraphics(gcf, figFile, "Resolution",300);
+    pause
+%     figFile = fullfile("C:\\Users\\Sindri\\Desktop\\EM\\",sprintf("%s_probability_vs_SL.png", mdl));
+%     exportgraphics(gcf, figFile, "Resolution",300);
 end
+
+
 
 %% Plot to see labels and durations against trial termination
 % figure(1); clf;
@@ -373,7 +396,60 @@ end
 
 %%
 
+function ax = plot_probs_to_sl(m, params, ax)
 
+if nargin < 4; ax = gca; end
+time = linspace(0,40,2400);
+hold(ax,"on")
+
+m = probStats(probStats.model == mdl,:);
+probs = cell2mat(m.probs);
+
+allNans = all(isnan(probs));
+probs = probs(:,~allNans);
+ttime = time(1:length(probs));
+revTime = ttime - max(ttime);
+
+% Average probs
+avgProbs = mean(probs,1,"omitnan");
+
+% Sem across record probs
+semProbs = std(probs,[],1,"omitnan") ./ sqrt(sum(~isnan(probs)));
+
+% Moving average probs
+win = 30;
+movProbs = movmean(avgProbs, win, "omitnan", "Endpoints","shrink");
+
+movSemProbs = movmean(semProbs, win, "omitnan", "Endpoints","shrink");
+
+% Plot sem patch
+% y = movProbs; s = movSemProbs;
+y = avgProbs; s = semProbs;
+
+
+p=patch(ax,[revTime fliplr(revTime)], [y-semProbs  fliplr(y+semProbs)], ...
+    colors.BLUE, "EdgeColor","none", "FaceColor", colors.BLUE);
+p.EdgeColor = "none";
+p.FaceAlpha = 0.2;
+
+% Plot all point average probabilties
+plot(ax,revTime, avgProbs, ...
+    'LineWidth',1, 'LineStyle',':', "Color",colors.BLUE);
+
+% Plot moving average
+plot(ax,revTime, movProbs, '-', ...
+    'LineWidth',4 ,'Color',colors.BLUE);
+xlim(ax,[min(revTime) max(revTime)+1])
+
+xline(ax,0, "--", "LineWidth",2)
+
+legend(ax,["SEM","Mean probabilites","Smoothed mean probabilites","Sleep Onset"])
+
+xlabel(ax,"Time before sleep onset [min]")
+ylabel(ax,"Mean Probability of MS")
+box on
+hold(ax,"off")
+end
 
 function out = get_corr_stats(rec, params, yMethod, limits)
 
@@ -446,16 +522,34 @@ out.x_interDurMedianMS = max(median(interDurs),0);
 
 % Probability features
 if isProb
+    yProbs = yProbs(1:yLim);
     % Cumulative probability
     out.x_cumProbMS = sum(yProbs) / length(yProbs);
     % Gradient of cumuluative sum
     out.x_probEntropyMS = wentropy(yProbs,"shannon");
+
+    % Get time based probability features
+    % Mean probability within these time ranges
+%     pre5 = idx_pre_sleep_onset(yProbs, 5);
+%     pre10 = idx_pre_sleep_onset(yProbs, 5);
+%     pre20 = idx_pre_sleep_onset(yProbs, 5);
+%     
 else
-    % Cumulative probability
     out.x_cumProbMS = nan;
-    % Gradient of cumuluative sum
     out.x_probEntropyMS = nan;
 end
+end
+
+function idx = idx_pre_sleep_onset(sig, min)
+
+    idx = length(sig) - (min*60);
+    
+    if idx < 0
+        idx = nan;
+    elseif idx == 0
+        idx = 1;
+    end
+       
 end
 
 function sleepLatency = get_per_epoch_sleep_latency(y, sampPerEpoch)

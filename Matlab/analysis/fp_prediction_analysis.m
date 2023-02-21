@@ -1,6 +1,5 @@
-tests = {testMuSleep, testUsleep, testLSTM, testRF, testSVM, testMalafeev};
+tests = {testMuSleep, testUsleep, testSSL, testLSTM, testRF, testSVM, testMalafeev};
 
-m = mdls(~contains(mdls,"SSL"));
 fpTable = table;
 for i = 1:numel(tests)
     tmp = tests{i};
@@ -48,11 +47,11 @@ for i = 3:size(tStats,2)
     ylim([0, 1.05])
     figure(2); hold on;
     ax1=subplot(numel(mdls),1,i-2); hold on;
-    h=plot(x,y, "o-","Color",c,"LineWidth",3);
+    h=plot(x,y, "o-","Color",c,"LineWidth",2,"MarkerSize",2);
     hh = [hh; h];
     box on
     grid on
-    ylabel(tmp.Properties.VariableNames(end),"Interpreter","none")
+    ylabel(tmp.Properties.VariableNames(end),"Interpreter","none","Rotation",0)
     if i < size(tStats,2); xticks(0:50:200); xticklabels([]); end
 
     figure(3); hold on;

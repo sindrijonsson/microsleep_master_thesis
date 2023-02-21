@@ -40,7 +40,7 @@ trainUSleep.probs = perRecProbs;
 
 %% mU-Sleep (transfer learning)
 % Let's evaluate transfer learning results
-trainMuSleep = load("training_performance\\transfer_learning_status.mat");
+trainMuSleep = load("training_performance\\transfer_learning_new.mat");
 tlOptThres = trainMuSleep.optThres;
 trainMuSleep = rmfield(trainMuSleep,"optThres");
 trainMuSleep.id = string(trainMuSleep.id);
@@ -70,7 +70,7 @@ trainMuSleep.yHat = yHat;
 [trainMuSleep_overall, trainMuSleep_perRec] = eval_test_by(trainMuSleep, "sample", params);
 
 %% Malafeev CNN_16s
-trainMalafeev = load("training_performance\malafeev42.mat");
+trainMalafeev = load("training_performance\malafeev42_new.mat");
 
 % trainMalafeev = rmfield(trainMalafeev,"probs");
 trainMalafeev.id = string(trainMalafeev.id);
@@ -99,7 +99,7 @@ trainMalafeev.yHat = yHat;
 %% SSL training
 
 % Let's evaluate SSL results
-trainSSL = load("training_performance\ssl.mat");
+trainSSL = load("training_performance\ssl_new.mat");
 sslOptThres = trainSSL.optThres;
 trainSSL = rmfield(trainSSL,"optThres");
 trainSSL.id = string(trainSSL.id);

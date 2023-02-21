@@ -9,7 +9,7 @@ fi = 17;
 for fi = 1:numel(files)
     load(files(fi),"probs");
     
-    view_rec(files(fi).replace(".\probs\","data\"),1);
+    view_rec(files(fi).replace(".\probs\","data\"),0);
     f=gcf;
     figure(2); clf;
     ax=subplot(6,1,1);

@@ -23,7 +23,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 ```{r Load data}
-setwd("C:/code/mU-Sleep/R")
+setwd("C:/code/microsleep_master_thesis/R")
 
 all.data <- read.csv("all_data.csv",stringsAsFactors = TRUE)
 all.data$criteria <- rep("Any duration", length(all.data$y))
@@ -66,13 +66,13 @@ ggplot(sl.stats, aes(x = y, y = cumsum)) +
 
 ```
 ```{r}
-exclude <- FALSE
+exclude <- TRUE
 
 if (exclude){
   lwr.lim <- 60 * 5
   upr.lim <- 60 * 40
-  all.data <- all.data[all.data$y > lim & all.data$y < upr.lim,]
-  limited.data <- limited.data[limited.data$y > lim & limited.data$y < upr.lim,]
+  all.data <- all.data[all.data$y > lwr.lim & all.data$y < upr.lim,]
+  limited.data <- limited.data[limited.data$y > lwr.lim & limited.data$y < upr.lim,]
 }
 
 ```

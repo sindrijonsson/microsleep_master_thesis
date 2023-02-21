@@ -339,7 +339,7 @@ for i = 1:numel(uniqueIds)
     timeProbs = linspace(0, 40, 40*60*optHz);
     plot_probs(probs, timeProbs, ax2);
     if contains(lower(optMethod),"argmax")
-        yline(ax2, 0.5, "k-", "LineWidth",1);
+%         yline(ax2, 0.5, "k-", "LineWidth",1);
     else
         yline(ax2, optThres, "k-", "LineWidth",1); 
     end
@@ -461,7 +461,7 @@ for i = 1:numel(uniqueIds)
     % Set all yaxis colors to black
     for n = 1:numel(axs)
         ax = axs(n);
-        for yi = 1:numel(ax.YAxis)
+        for yi = 1:numel(ax.YAxis)      
             ax.YAxis(yi).Color="k";
         end
     end
@@ -499,7 +499,7 @@ uniqueIds = unique(testAll.id);
 saveOn = 1;
 
 for i = 1:numel(uniqueIds)
-    i=randi(numel(uniqueIds),1,1);
+%     i=randi(numel(uniqueIds),1,1);
 
     tmpId = uniqueIds(i);
     tmp = testAll(testAll.id==tmpId,:);
@@ -522,7 +522,7 @@ for i = 1:numel(uniqueIds)
     % Plot the target labels
     tmpTargets = tmp.yTrue{1,:};
     ax1 = subplot(subRows, subCols, 1); hold on;
-    plot_predictions(tmpTargets, timePreds, colors.BLUE, 1, ax1);
+    plot_predictions(tmpTargets, timePreds, msColor, 1, ax1);
     lgdHdl =[]; lgdName = [];
     p=findall(ax1.Children,"Type","Patch");
     % TO INCLUDE NAN TARGETS UNCOMMENT BELOW:

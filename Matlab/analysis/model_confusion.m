@@ -34,7 +34,7 @@ allTest = {transmUsleepTest;
     testLSTM;
     testRF;
     testSVM;
-    transMalafeevTest,
+    transMalafeevTest;
     expert};
 
 models = [mdls; "Human"]
