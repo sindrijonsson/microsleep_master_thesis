@@ -1,9 +1,9 @@
-% for i = 42:numel(params.filePaths)
-%     
-%     view_rec(params.filePaths(i), 1);
-%     pause
-% 
-% end
+for i = 1:numel(params.filePaths)
+    
+    view_rec(params.filePaths(i), 1);
+    pause
+
+end
 
 % C1Wu 500-530
 % LR2s 890-900
@@ -61,7 +61,12 @@ set(cb(1), "Position", [0.911284722082524,0.110072689506869,0.011111111111111,0.
 %%
 set(findall(gcf,"-property","FontSize"),"FontSize",16)
 sgtitle("Microsleep example","FontSize",20)
-    
+
+fig = gcf;
+set(fig,'position',[fig.Position(1:2), 1280, 800])
+figFile = fullfile(params.outFolder,"figures","demo2.png");
+exportgraphics(fig, figFile, "Resolution",300);
+
 %% 
 d=load("data/zaca.mat");
 data = d.Data;

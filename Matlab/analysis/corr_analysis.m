@@ -7,7 +7,7 @@ setup
 %% Collect per subject predictions and targets
 
 % Run main and check_overfitting first
-new_main; check_overfitting;
+% new_main; check_overfitting;
 
 all_mUSleep = [testMuSleep; trainMuSleep];
 all_mUSleep.probs=cellfun(@(x) x(:,2), all_mUSleep.probs, 'UniformOutput', false);

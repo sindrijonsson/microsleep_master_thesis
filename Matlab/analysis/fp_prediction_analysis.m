@@ -15,13 +15,13 @@ for i = 1:numel(tests)
                     "InputVariables",["fp"], ...
                     "GroupingVariables","dur", ...
                     "OutputVariableNames","perc");
-    stats.model = repmat(m(i),height(stats),1);
+    stats.model = repmat(mdls(i),height(stats),1);
 
     fpTable = [fpTable; stats];
 end
 
 tStats=unstack(fpTable, ["perc"], "model","VariableNamingRule","preserve");
-tStats=tStats(:,["dur","GroupCount",m']);
+tStats=tStats(:,["dur","GroupCount",mdls']);
 
 figure(2); clf; hold on;
 
@@ -31,7 +31,7 @@ figure(3); clf; hold on;
 hdl = [];
 hh = [];
 bhdl = [];
-
+uniX = unique(fpTable.dur);
 cc=lines(length(unique(fpTable.model)));
 for i = 3:size(tStats,2)
     tmp = tStats(:,[1,2,i]);
@@ -46,13 +46,25 @@ for i = 3:size(tStats,2)
 
     ylim([0, 1.05])
     figure(2); hold on;
+    ix = ismember(uniX,x);
+    px = categorical(uniX);
+    py = nan(size(px));
+    py(ix) = y;
     ax1=subplot(numel(mdls),1,i-2); hold on;
-    h=plot(x,y, "o-","Color",c,"LineWidth",2,"MarkerSize",2);
+    plot(x,y, "o-","Color",c,"LineWidth",2,"MarkerSize",2);
+    h=bar(x,y,"EdgeColor","none","FaceColor",c,"FaceAlpha",0.2);
+%     h=area(px,py,"FaceColor",c,"EdgeColor","none");
     hh = [hh; h];
     box on
     grid on
-    ylabel(tmp.Properties.VariableNames(end),"Interpreter","none","Rotation",0)
-    if i < size(tStats,2); xticks(0:50:200); xticklabels([]); end
+    ylabel(tmp.Properties.VariableNames(end), ...
+        "Interpreter","none","Rotation",45, ...
+        "HorizontalAlignment","right" )
+    if i < size(tStats,2)
+%         if h.t
+        if h.Type == "bar"; xticks(0:50:300); end
+        xticklabels([]);
+    end
 
     figure(3); hold on;
     ax2 = gca;
@@ -70,6 +82,8 @@ for i = 3:size(tStats,2)
     xlabel("Duration [s]")
     box on
 end
+
+
 
 legend(bhdl, tStats.Properties.VariableNames(3:end), ...
     "Location","northeast","Interpreter","none")
@@ -90,6 +104,12 @@ figure(2);
 linkaxes(findall(gcf,"Type","Axes"),'xy')
 
 set(findall(gcf,"-property","FontSize"),"FontSize",16)
+
+% fig = figure(2);
+% xlim([0 200])
+% set(fig,'position',[fig.Position(1:2), 1280, 1280])
+% figFile = fullfile(params.outFolder,"figures","fp_fig_long.png");
+% exportgraphics(fig, figFile, "Resolution",300);
 
 function out = get_duration_false_positives(targets, preds, params)
 

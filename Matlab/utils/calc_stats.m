@@ -12,4 +12,12 @@ stats.prc75  = prctile(x, 75);
 stats.max    = max(x, [], nanHdl);
 stats.within = sum((x >= 3) & (x <= 15)) / length(x);
 
+% Calc # samples per duration
+[cnt, val] = hist(x, unique(x));
+total = sum(x);
+stats.sampLess3 = sum(cnt(val<3) .* val(val<3)) / total;
+stats.sampWithin = sum(cnt(val>=3 & val<=15) .* val(val>=3 & val<=15)) / total;
+stats.sampGreater15 = sum(cnt(val>15) .* val(val>15)) / total;
+
+
 end

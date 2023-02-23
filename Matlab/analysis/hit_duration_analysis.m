@@ -20,13 +20,13 @@ stats.dur = stats.dur;
 tStats=unstack(stats, "perc", "model",'VariableNamingRule','preserve');
 tStats=tStats(:,["dur","GroupCount",m']);
 
-figure(2);clf; hold on;
+figure(1);clf; hold on;
 hdl = [];
 hh = [];
 bhdl = [];
 
 x=tStats.dur;
-idx = [1, 3; 3, 15; 16, find(x==max(x))];
+idx = [1, 2; 3, 15; 16, find(x==max(x))];
 cc=lines(length(unique(stats.model)));
 for i = 3:size(tStats,2)
     y=table2array(tStats(:,i));
@@ -44,7 +44,7 @@ for i = 3:size(tStats,2)
     ylim([0, 1.05])
     
     subplot(3,1,[1,2]); hold on;
-    h=plot(movmean(y,5), "-","Color",c,"LineWidth",3);
+    h=plot(movmean(y,5,"Endpoints","shrink"), "-","Color",c,"LineWidth",3);
     hh = [hh; h];
     xticks(1:length(tStats.dur))
     xticklabels(tStats.dur)
@@ -88,7 +88,7 @@ legend(bhdl, tStats.Properties.VariableNames(3:end), ...
 ax = hdl(1).Parent;
 xline(ax,3,"--","LineWidth",2)
 xline(ax,15,"--","LineWidth",2)
-sgtitle("Recall as a function of MS duration")
+sgtitle("Recall as a function of microsleep label duration")
 
 set(findall(gcf,"-property","FontSize"),"FontSize",16)
 

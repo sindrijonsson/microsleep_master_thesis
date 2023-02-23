@@ -367,7 +367,7 @@ for i = 1:numel(uniqueIds)
     %                               mUSleep                             %
     % ================================================================= %
 
-    muSleepStats = mUSleep_perRecMetrics(uSleep_perRecMetrics.id==tmpId,1:end-1);
+    muSleepStats = mUSleep_perRecMetrics(mUSleep_perRecMetrics.id==tmpId,1:end-1);
     muSleepInfo = cellfun(@(var,value) sprintf("%s=%.2f", var, value), ...
         muSleepStats.Properties.VariableNames, table2cell(muSleepStats));
     muSleepInfo = muSleepInfo(contains(muSleepInfo,["recall","precision","f1"]));
@@ -413,7 +413,7 @@ for i = 1:numel(uniqueIds)
     %                               mU-SSL                              %
     % ================================================================= %
 
-    SSLstats = mUSleep_perRecMetrics(uSleep_perRecMetrics.id==tmpId,1:end-1);
+    SSLstats = ssl_perRecMetrics(ssl_perRecMetrics.id==tmpId,1:end-1);
     sslInfo = cellfun(@(var,value) sprintf("%s=%.2f", var, value), ...
         SSLstats.Properties.VariableNames, table2cell(SSLstats));
     sslInfo = sslInfo(contains(sslInfo,["recall","precision","f1"]));
@@ -447,7 +447,7 @@ for i = 1:numel(uniqueIds)
     yhdl(ax7, "Predictions")
     ax7.YTick=[]; ax7.YTickLabels=[];
     yyaxis right
-    yyhdl(ax7,muSleepInfo)
+    yyhdl(ax7,sslInfo)
     box(ax7,"on")
     ax7.YTick=[];
     ax7.YTickLabels=[];
