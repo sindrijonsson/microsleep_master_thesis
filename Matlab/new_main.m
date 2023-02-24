@@ -4,7 +4,7 @@ setup
 
 % 0. Set the parameters of the main script
 params = struct;
-params.outFolder = "new_main_comparison";
+params.outFolder = "main_comparison";
 params.filePaths = strcat("data/", ls("data/*.mat"));
 params.fileIds = params.filePaths.extractAfter("data/").extractBefore(".mat");
 params.seed = load("seed.mat");
