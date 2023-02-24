@@ -5,6 +5,7 @@ function metrics = calc_performance_metrics(y_true, y_hat, params, order)
     if nargin < 4; order = [1, -1]; end
 
     metrics = struct;
+    
 
     % Generate confusion matrix
     cm = confusionmat(y_true, y_hat, "Order", order);
