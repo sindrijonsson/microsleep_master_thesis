@@ -32,9 +32,9 @@ if strcmpi(by, "sample")
 else
 
     % Remove entries where every value is zero
-    arrTable = table2array(tbl(:,["precision","recall","f1"]));
-    validIdx = all(arrTable, 2);
-    tbl = tbl(validIdx,:);
+%     arrTable = table2array(tbl(:,["precision","recall","f1"]));
+%     validIdx = all(arrTable, 2);
+%     tbl = tbl(validIdx,:);
 
     % Calculate mean scores
     m = struct;

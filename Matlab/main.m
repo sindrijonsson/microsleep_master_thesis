@@ -239,22 +239,23 @@ overallEventTable.model = mdls;
 overallEventTable = overallEventTable(:,["model",overallEventTable.Properties.VariableNames(1:end-1)]);
 
 % Per rec
-perRecEvent = {mUSleep_perRecMetrics,
-                uSleep_perRecMetrics,
-                ssl_perRecMetrics,
-                LSTM_perRecMetrics,
-                RF_perRecMetrics,
-                SVM_perRecMetrics,
-                malafeev_perRecMetrics};
+perRecEvent = {muSleep_eventPerRecMetrics,
+                uSleep_eventPerRecMetrics,
+                ssl_eventPerRecMetrics,
+                LSTM_eventPerRecMetrics,
+                RF_eventPerRecMetrics,
+                SVM_eventPerRecMetrics,
+                malafeev_eventPerRecMetrics};
 perRecEventTable = table;
 for i = 1:numel(perRecEvent)
     var = perRecEvent{i};
     [m, s] = summarize_perRecMetrics(var, "event");
+    m
     uSleepInfo = cellfun(@(m,s) sprintf("%.2f +/- %.2f",m,s), struct2cell(m),struct2cell(s));
     entry = cell2struct(cellstr(uSleepInfo),fieldnames(m));
     perRecEventTable = [perRecEventTable; struct2table(entry)];
 end
-perRecEventTable.model = mdls
+perRecEventTable.model = mdls;
 perRecEventTable = perRecEventTable(:,["model",perRecEventTable.Properties.VariableNames(1:end-1)]);
 
 disp(overallEventTable)
